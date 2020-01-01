@@ -39,8 +39,8 @@ public class QueryTool {
     TSaslClientTransport saslTransport = new TSaslClientTransport(
         "GSSAPI", // tell SASL to use GSSAPI, which supports Kerberos
         null, // authorizationid - null
-        "hive", // kerberos primary for server - "myprincipal" in myprincipal/my.server.com@MY.REALM
-        "gz-cashloan-test-app26-80-43.itclj.host",// kerberos instance for server - "my.server.com" in myprincipal/my.server.com@MY.REALM
+        "user1/HADOOP.COM", // kerberos primary for server - "myprincipal" in myprincipal/my.server.com@MY.REALM
+        "hadoop102",// kerberos instance for server - "my.server.com" in myprincipal/my.server.com@MY.REALM
         saslProperties, // Properties set, above
         null, // callback handler - null
         transport); // underlying transport

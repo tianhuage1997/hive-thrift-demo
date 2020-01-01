@@ -14,7 +14,7 @@ public class KerberosLogin {
   private Logger logger= LoggerFactory.getLogger(KerberosLogin.class);
 
   public void login() {
-    String hiveUserName = "finance";
+    String hiveUserName = "user1";
     String hiveKeytab = "D:\\idea_workspace\\user1.keytab";
     String krbconf = "D:\\idea_workspace\\krb5.conf";
 
@@ -24,6 +24,7 @@ public class KerberosLogin {
     UserGroupInformation.setConfiguration(conf);
     try {
       UserGroupInformation.loginUserFromKeytab(hiveUserName, hiveKeytab);
+      System.out.println("认证成功");
     } catch (IOException e) {
       logger.error("Kerberos login fail.", e);
     }

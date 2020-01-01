@@ -44,7 +44,7 @@ public class QueryInstance {
   private static String host = "192.168.0.121";
   private static int port = 10000;
   private static String username = "hive";
-  private static String passsword = "";
+  private static String passsword = "123456";
   private static TTransport transport;
   private static TCLIService.Client client;
   private TOperationState tOperationState = null;
@@ -53,9 +53,10 @@ public class QueryInstance {
   static {
     try {
       transport = QueryTool.getSocketInstance(host, port);
+      System.out.println("打开 hive 端口");
       client = new TCLIService.Client(new TBinaryProtocol(transport));
       transport.open();
-
+      System.out.println("提交hive端口  transport.open()");
     } catch (Exception e) {
       logger.error("hive collection error!", e);
     }
