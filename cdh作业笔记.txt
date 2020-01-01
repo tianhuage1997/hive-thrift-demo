@@ -1,0 +1,150 @@
+启动cdh
+/opt/module/cm/cm-5.12.1/etc/init.d/cloudera-scm-server start
+/opt/module/cm/cm-5.12.1/etc/init.d/cloudera-scm-server stop
+
+hadoop102
+/opt/module/cm/cm-5.12.1/etc/init.d/cloudera-scm-agent start
+/opt/module/cm/cm-5.12.1/etc/init.d/cloudera-scm-agent stop
+
+
+hadoop103
+/opt/module/cm/cm-5.12.1/etc/init.d/cloudera-scm-agent start
+/opt/module/cm/cm-5.12.1/etc/init.d/cloudera-scm-agent stop
+
+hadoop104
+/opt/module/cm/cm-5.12.1/etc/init.d/cloudera-scm-agent start
+/opt/module/cm/cm-5.12.1/etc/init.d/cloudera-scm-agent stop
+
+
+关闭防火墙
+service iptables stop
+service ip6tables stop
+service iptables status
+service ip6tables status
+
+chkconfig iptables off
+chkconfig ip6tablesoff
+
+vi /etc/selinux/config
+SELINUX=disabled
+
+
+
+
+http://node01:7180
+admin
+admin
+
+环境变量
+vim /etc/profile
+
+hbase
+zk
+ cd /home/software/zookeeper-3.4.7/bin
+
+sh /home/software/zookeeper-3.4.7/bin/zkServer.sh start
+
+sh /home/software/zookeeper-3.4.7/bin/zkServer.sh stop
+
+
+linxu原生自带jdk。需要卸载
+二、卸载旧版本的JDK：
+1. 确定JDK的版本：
+$ rpm -qa | grep jdk
+ 
+可能的结果是：
+java-1.4.2-gcj-compat-1.4.2.0-40jpp.115 
+ 
+2.然后卸载：
+$ yum -y remove java-1.4.2-gcj-compat-1.4.2.0-40jpp.115
+ 
+三、重新配置JDK
+下载jdk解压之后如：jdk1.8.0_152
+编辑环境变量
+$ vi /etc/profile
+在最后追加上：
+JAVA_HOME=/home/svr/deploy/service/jdk/jdk1.8.0_152
+export PATH=$JAVA_HOME/bin:$PATH
+ 
+使环境变量生效，
+$ source /etc/profile
+
+
+
+时间校正
+
+
+
+
+cdh 5.12.1
+各个组件的文件夹路径
+/opt/cloudera/parcels/CDH-5.12.1-1.cdh5.12.1.p0.3/lib/
+
+这个路径，就能看到所有组件的bin。就可以用对应的命令行去操作。
+比如 zk
+zookeeper/bin
+
+
+还有一个命令
+find  / -name  zookeeper   也可以找到对应的所有目录 
+
+mac地址记录
+hadoop102  00:0C:29:0B:BF:53
+hadoop103  00:0C:29:86:53:92
+hadoop104  00:0C:29:20:0F:94
+
+HUE
+http://hadoop102:8888（未优化）或http://hadoop102:8889（优化）
+账号admin
+密码admin
+
+Kylin
+http://hadoop102:7070/kylin
+用户名为：ADMIN，密码为：KYLIN
+
+OOZIE
+
+没有主体
+kadmin.local -q "addprinc  hdfs"
+输入密码123456
+
+
+create table  table3 (id int, name string,age int) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+LOAD DATA LOCAL INPATH '/data/hive-test.txt' INTO TABLE table3;
+
+
+kerberos
+采用对应的密匙文件进行认证
+kinit -kt /data/user1.keytab user1
+
+生成对应用户的密匙文件
+kadmin.local -q "xst -k /data/user1.keytab user1@HADOOP.COM"
+
+
+销毁凭证
+kdestroy
+
+连接hive
+beeline  -u  "jdbc:hive2://hadoop102:10000/;principal=hive/hadoop102@HADOOP.COM"
+
+
+登录Kerberos
+kadmin.local
+生成对应用户的密匙文件
+xst -norandkey -k /data/user1.keytab user1
+
+
+使用命令
+hive --service metastore
+异常代码一样
+
+异常总结
+https://github.com/steveloughran/kerberos_and_hadoop/blob/master/sections/errors.md
+
+
+zk连接服务
+./zkCli.sh -server localhost:2181
+获取所有zk节点
+get /   
+
