@@ -17,11 +17,11 @@ public class teseHive {
 //        System.out.println(System.getProperty("java.security.krb5.conf"));
         UserGroupInformation.setConfiguration(conf);
         try {
-            UserGroupInformation.loginUserFromKeytab("user1@HADOOP.COM", "D:\\idea_workspace\\user1.keytab");
+            UserGroupInformation.loginUserFromKeytab("user1", "D:\\idea_workspace\\user1.keytab");
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println("Succeeded in authenticating through Kerberos!");
+       System.out.println("Succeeded in authenticating through Kerberos!");
         String JDBC_DRIVER = "org.apache.hive.jdbc.HiveDriver";
         Class.forName(JDBC_DRIVER);
         //DriverManager.getConnection("jdbc:hive2://hadoop102:10000/;principal=mammut/qa@MAMMUT.QA.HZ.NETEASE.COM;);
