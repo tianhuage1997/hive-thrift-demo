@@ -20,6 +20,7 @@ public class KerberosLogin {
 
     System.setProperty("java.security.krb5.conf", krbconf);
     Configuration conf = new Configuration();
+    conf.setBoolean("hadoop.security.authorization", true);
     conf.set("hadoop.security.authentication", "Kerberos");
     UserGroupInformation.setConfiguration(conf);
     try {
