@@ -2,8 +2,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.security.UserGroupInformation;
 
 import java.io.IOException;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class teseHive {
 
@@ -25,7 +24,18 @@ public class teseHive {
         String JDBC_DRIVER = "org.apache.hive.jdbc.HiveDriver";
         Class.forName(JDBC_DRIVER);
         //DriverManager.getConnection("jdbc:hive2://hadoop102:10000/;principal=mammut/qa@MAMMUT.QA.HZ.NETEASE.COM;);
-        DriverManager.getConnection("jdbc:hive2://hadoop102:10000/;principal=hive/hadoop102@HADOOP.COM");
+        Connection con =DriverManager.getConnection("jdbc:hive2://hadoop102:10000/default;principal=hive/hadoop102@HADOOP.COM");
+        Statement stmt= con.createStatement();
+
+        String tableName = "table3";// hive表名
+        String sql = "select * from " + tableName;
+        System.out.println("Running:" + sql);
+
+        ResultSet res = stmt.executeQuery(sql);
+        System.out.println("执行 select * query 运行结果:");
+        while (res.next()) {
+            System.out.println(res.getString(1) + "\t" + res.getString(2));
+        }
 
     }
 }
