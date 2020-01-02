@@ -128,6 +128,9 @@ kdestroy
 连接hive
 beeline  -u  "jdbc:hive2://hadoop102:10000/;principal=hive/hadoop102@HADOOP.COM"
 
+ use default;
+select * from table3;
+
 
 登录Kerberos
 kadmin.local
@@ -146,5 +149,30 @@ https://github.com/steveloughran/kerberos_and_hadoop/blob/master/sections/errors
 zk连接服务
 ./zkCli.sh -server localhost:2181
 获取所有zk节点
-get /   
+get /
+
+时间同步
+#ntpdate pool.ntp.org
+15 May 10:51:02 ntpdate[50325]: the NTP socket is in use, exiting
+这个意思是端口被占用
+般情况下，别的服务是不会占用这个端口的，所以可能的结果是ntpd服务在占用。此时，可以使用ntpdate命令的-u参数解决此问题，即：
+# ntpdate -u pool.ntp.org
+15 May 11:19:13 ntpdate[28173]: adjust time server 202.118.1.81 offset -0.029390 sec
+
+修改电脑时区
+https://blog.csdn.net/wudinaniya/article/details/86593542
+https://jingyan.baidu.com/article/fa4125acb7328628ac70920e.html
+中国CST时区
+tzselect
+选择 Asia-china-beijing time-yes。
+看下时区
+date
+时区信息拷贝，并覆盖原来的时区信息，操作命令如下：
+cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+最后，最好修改，硬件时钟基于系统时钟同步
+系统时钟和硬件时钟同步：
+
+# hwclock --systohc或者# clock --systohc  即用系统时钟同步硬件时钟
+
+
 
